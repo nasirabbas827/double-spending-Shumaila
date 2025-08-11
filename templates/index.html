@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>Blockchain Network Simulator</h1>
+<p>Welcome to the blockchain simulator. Current nodes in the network:</p>
+<ul>
+    {% for node in nodes %}
+    <li>{{ node.name }} (Hash Power: {{ node.hash_rate|round(2) }})</li>
+    {% endfor %}
+</ul>
+<p>Navigate to Transactions to view the blockchain or Attack to simulate a double-spend attack.</p>
+{% endblock %}
