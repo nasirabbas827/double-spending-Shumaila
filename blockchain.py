@@ -7,7 +7,7 @@ class Blockchain:
         self.chain = []
         self.current_transactions = []
         self.difficulty = difficulty
-        self.balances = {'Anas': 100, 'Hamid': 100, 'Haider': 100}  # Initial balances
+        self.balances = {'Anas': 100, 'Hamid': 100, 'Haider': 100, 'Nasir': 100, 'Ali': 100, 'Omar': 100}
         self.create_genesis_block()
 
     def create_genesis_block(self):
@@ -34,9 +34,7 @@ class Blockchain:
             nonce += 1
 
     def validate_transaction(self, sender, receiver, amount):
-        if sender == receiver:
-            return False
-        if amount <= 0:
+        if sender == receiver or amount <= 0:
             return False
         if sender not in self.balances or self.balances[sender] < amount:
             return False
@@ -50,9 +48,6 @@ class Blockchain:
             'timestamp': time.time()
         }
         self.current_transactions.append(transaction)
-        # Update balances
-        self.balances[sender] = self.balances.get(sender, 100) - amount
-        self.balances[receiver] = self.balances.get(receiver, 100) + amount
         return transaction
 
     def mine_block(self):

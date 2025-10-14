@@ -2,6 +2,7 @@
 {% block title %}Transactions{% endblock %}
 {% block content %}
 <h1>Blockchain Transactions</h1>
+<p>Current main chain (what the network accepts). In a double-spend, the public transaction may appear temporarily on honest nodes but get orphaned if attacker succeeds.</p>
 {% for block in chain %}
 <div class="card mb-3">
     <div class="card-header">Block #{{ block.index }}</div>
@@ -14,7 +15,11 @@
         {% if block.transactions %}
         <ul>
             {% for tx in block.transactions %}
-            <li>{{ tx.sender }} sent {{ tx.amount }} to {{ tx.receiver }}</li>
+            <li>
+                <strong>TX ID:</strong> {{ tx.tx_id }}<br>
+                <strong>Sender:</strong> {{ tx.sender }} sent <strong>{{ tx.amount }}</strong> to <strong>{{ tx.receiver }}</strong><br>
+                <strong>TX Timestamp:</strong> {{ tx.timestamp }}
+            </li>
             {% endfor %}
         </ul>
         {% else %}
@@ -23,4 +28,17 @@
     </div>
 </div>
 {% endfor %}
+
+{% if honest_chain and attacker_chain %}
+<h2 class="mt-5">Last Attack Forks (for Analysis)</h2>
+<p><strong>Result:</strong> {{ attack_result }} (Private chain won if Success; Public orphaned).</p>
+
+<h3 class="mt-4">Honest/Public Chain (What Victim Saw Initially)</h3>
+<pre class="bg-light p-3">{{ honest_chain }}</pre>
+
+<h3 class="mt-4">Attacker/Private Chain (Secret Fork)</h3>
+<pre class="bg-light p-3">{{ attacker_chain }}</pre>
+{% else %}
+<p class="mt-5">No attack simulated yet. Run an attack to see fork details here.</p>
+{% endif %}
 {% endblock %}

@@ -37,7 +37,14 @@
 </form>
 {% if result %}
 <div class="alert alert-info mt-3 mb-3">{{ result }}</div>
+
+<h3 class="mt-4">Honest/Public Chain (What Victim Sees Initially)</h3>
+<pre class="bg-light p-3">{{ honest_chain }}</pre>
+
+<h3 class="mt-4">Attacker/Private Chain (Secret Fork)</h3>
+<pre class="bg-light p-3">{{ attacker_chain }}</pre>
 {% endif %}
+
 <h2 class="mt-4 mb-5">Attack History</h2>
 {% if attack_history %}
 <ul class="list-group mb-5">
